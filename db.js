@@ -1,6 +1,4 @@
 const { Schema, default: mongoose } = require('mongoose');
-require('dotenv').config()
-mongoose.connect(process.env.DATABASE_CONNECTION_STRING);
 
 const ObjectId = mongoose.Types.ObjectId;
 

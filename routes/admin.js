@@ -14,19 +14,19 @@ adminRouter.post('/signin', function(req, res){
     })
 })
 
-adminRouter.post('/course', function(req, res){
+adminRouter.post('/c', function(req, res){
     res.json({
         message: "course post endpoint"
     })
 })
 
-adminRouter.put('/course', function(req, res){
+adminRouter.put('/', function(req, res){
     res.json({
         message: "course put endpoint"
     })
 })
 
-adminRouter.get('/course', function(req, res){
+adminRouter.get('/bulk', function(req, res){
     res.json({
         message: "course get endpoint"
     })
