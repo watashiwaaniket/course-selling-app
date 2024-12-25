@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 
+
 adminRouter.post('/signup',async function(req, res){
     const { email, password, firstName, lastName } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 5);
