@@ -89,6 +89,27 @@ adminRouter.get('/course/bulk',async function(req, res){
     }
 });
 
+adminRouter.delete('/course', async function(req, res){
+    const { creatorId, title } = req.body;
+
+
+    const response = await courseModel.deleteOne({
+        creatorId: creatorId,
+        title: title
+    });
+
+    if(response.deletedCount === 0){
+        res.status(403).json({
+            message: "Course Not Found!"
+        })
+    }    
+    
+    res.json({
+        message: "The course have been deleted!"
+    })
+
+});
+
 module.exports = {
     adminRouter: adminRouter
 }
