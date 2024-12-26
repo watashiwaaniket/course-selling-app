@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const adminRouter = Router();
-const { adminModel } = require('../db');
+const { adminModel, courseModel } = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { adminMiddleware } = require('../middlewares/admin')
 require('dotenv').config();
 
 
@@ -47,23 +48,46 @@ adminRouter.post('/signin',async function(req, res){
     }
 });
 
-adminRouter.post('/course', function(req, res){
+
+adminRouter.post('/course', adminMiddleware, async function(req, res){
+    const { title, description, price, imageUrl, creatorId } = req.body;
+
+    await courseModel.create({
+        title: title,
+        description: description,
+        price: price,
+        imageUrl: imageUrl,
+        creatorId: creatorId
+    });
+
     res.json({
-        message: "course post endpoint"
+        message: "Course Added successfully!"
     })
-})
+
+});
 
 adminRouter.put('/course', function(req, res){
+
     res.json({
         message: "course put endpoint"
     })
 })
 
-adminRouter.get('/course/bulk', function(req, res){
-    res.json({
-        message: "course get endpoint"
+adminRouter.get('/course/bulk',async function(req, res){
+    const { creatorId } = req.body;
+
+    const response = await courseModel.find({
+        creatorId: creatorId
     })
-})
+
+    if(response){
+        res.json(response)
+    }else{
+        res.status(403).json({
+            message: "Course Not found."
+        })
+    }
+});
 
 module.exports = {
     adminRouter: adminRouter
