@@ -73,7 +73,7 @@ adminRouter.put('/course', function(req, res){
     })
 })
 
-adminRouter.get('/course/bulk',async function(req, res){
+adminRouter.get('/course/bulk', adminMiddleware, async function(req, res){
     const { creatorId } = req.body;
 
     const response = await courseModel.find({
@@ -89,7 +89,7 @@ adminRouter.get('/course/bulk',async function(req, res){
     }
 });
 
-adminRouter.delete('/course', async function(req, res){
+adminRouter.delete('/course', adminMiddleware, async function(req, res){
     const { creatorId, title } = req.body;
 
 
