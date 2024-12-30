@@ -24,11 +24,9 @@ userRouter.post('/signup', async function(req, res){
 })
  
 userRouter.post('/login', async function(req, res){
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password } = req.body;
     const response = await userModel.findOne({
         email: email,
-        firstName: firstName,
-        lastName: lastName
     })
 
     if(bcrypt.compareSync(password, response.password.toString())){

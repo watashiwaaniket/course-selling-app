@@ -26,11 +26,9 @@ adminRouter.post('/signup',async function(req, res){
 });
 
 adminRouter.post('/signin',async function(req, res){
-    const { email, password, firstName, lastName } = req.body;
+    const { email, password } = req.body;
     const response = await adminModel.findOne({
         email: email,
-        firstName: firstName,
-        lastName: lastName
     })
 
     if(bcrypt.compareSync(password, response.password.toString())){
